@@ -10,7 +10,7 @@ Gem::Specification.new do |s|
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Curtis Schofield"]
   s.date = "2012-03-07"
-  s.description = "TODO: longer description of your gem"
+  s.description = "Your resources text attributes will gain inplace update ability with keybindings for quick editing"
   s.email = "curtis@ram9.cc"
   s.extra_rdoc_files = [
     "LICENSE.txt",
@@ -26,6 +26,7 @@ Gem::Specification.new do |s|
     "Rakefile",
     "VERSION",
     "lib/simple_update_field.rb",
+    "simple_update_field.gemspec",
     "spec/simple_update_field_spec.rb",
     "spec/spec_helper.rb",
     "vendor/assets/javascripts/editable_list.js"
@@ -34,7 +35,7 @@ Gem::Specification.new do |s|
   s.licenses = ["MIT"]
   s.require_paths = ["lib"]
   s.rubygems_version = "1.8.10"
-  s.summary = "TODO: one-line summary of your gem"
+  s.summary = "turn a resource attribute into an inplace editable field"
 
   if s.respond_to? :specification_version then
     s.specification_version = 3
