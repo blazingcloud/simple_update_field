@@ -1,7 +1,5 @@
 module SimpleUpdateField
-  module Rails
-    class Engine < ::Rails::Engine
-
-    end
+  class Engine < ::Rails::Engine
+    # let rails know to include the javascript
   end
 end
