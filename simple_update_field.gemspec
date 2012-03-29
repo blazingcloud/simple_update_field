@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = "simple_update_field"
-  s.version = "0.2.3"
+  s.version = "1.0.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Curtis Schofield"]
@@ -19,16 +19,63 @@ Gem::Specification.new do |s|
   s.files = [
     ".document",
     ".rspec",
+    ".rvmrc",
     "Gemfile",
     "Gemfile.lock",
     "LICENSE.txt",
     "README.rdoc",
     "Rakefile",
     "VERSION",
+    "app/assets/images/rails.png",
+    "app/assets/javascripts/application.js",
+    "app/assets/stylesheets/application.css",
+    "app/controllers/application_controller.rb",
+    "app/controllers/phrases_controller.rb",
+    "app/helpers/application_helper.rb",
+    "app/mailers/.gitkeep",
+    "app/models/.gitkeep",
+    "app/models/phrase.rb",
+    "app/views/layouts/application.html.erb",
+    "app/views/phrases/_phrase.html.erb",
+    "app/views/phrases/index.html.erb",
+    "config.ru",
+    "config/application.rb",
+    "config/boot.rb",
+    "config/database.yml",
+    "config/environment.rb",
+    "config/environments/development.rb",
+    "config/environments/production.rb",
+    "config/environments/test.rb",
+    "config/initializers/backtrace_silencers.rb",
+    "config/initializers/inflections.rb",
+    "config/initializers/mime_types.rb",
+    "config/initializers/secret_token.rb",
+    "config/initializers/session_store.rb",
+    "config/initializers/wrap_parameters.rb",
+    "config/locales/en.yml",
+    "config/routes.rb",
+    "db/migrate/20120213182817_create_phrases.rb",
+    "db/schema.rb",
+    "db/seeds.rb",
+    "lib/assets/.gitkeep",
     "lib/simple_update_field.rb",
+    "lib/tasks/.gitkeep",
+    "lib/tasks/admin.rake",
+    "lib/tasks/jasmine.rake",
+    "script/rails",
     "simple_update_field.gemspec",
-    "spec/simple_update_field_spec.rb",
+    "spec/controllers/phrases_controller_spec.rb",
+    "spec/javascripts/editable_list_spec.js",
+    "spec/javascripts/helpers/mock-ajax.js",
+    "spec/javascripts/spec.css",
+    "spec/javascripts/spec.js",
+    "spec/lib/simple_update_field_spec.rb",
+    "spec/models/phrase_spec.rb",
+    "spec/routing/phrase_spec.rb",
+    "spec/routing/root_spec.rb",
     "spec/spec_helper.rb",
+    "spec/views/_phrase.html.erb_spec.rb",
+    "spec/views/index.html.erb_spec.rb",
     "vendor/assets/javascripts/editable_list.js"
   ]
   s.homepage = "http://github.com/robotarmy/simple_update_field"
@@ -45,17 +92,44 @@ Gem::Specification.new do |s|
       s.add_development_dependency(%q<rdoc>, ["~> 3.12"])
       s.add_development_dependency(%q<bundler>, ["~> 1.1.0"])
       s.add_development_dependency(%q<jeweler>, ["~> 1.8.3"])
+      s.add_development_dependency(%q<rails>, ["= 3.1.0"])
+      s.add_development_dependency(%q<sqlite3>, [">= 0"])
+      s.add_development_dependency(%q<jquery-rails>, [">= 0"])
+      s.add_development_dependency(%q<rspec-rails>, [">= 0"])
+      s.add_development_dependency(%q<autotest>, [">= 0"])
+      s.add_development_dependency(%q<capybara>, [">= 0"])
+      s.add_development_dependency(%q<jasminerice>, [">= 0"])
+      s.add_development_dependency(%q<guard-jasmine>, [">= 0"])
+      s.add_development_dependency(%q<faker>, [">= 0"])
     else
       s.add_dependency(%q<rspec>, ["~> 2.8.0"])
       s.add_dependency(%q<rdoc>, ["~> 3.12"])
       s.add_dependency(%q<bundler>, ["~> 1.1.0"])
       s.add_dependency(%q<jeweler>, ["~> 1.8.3"])
+      s.add_dependency(%q<rails>, ["= 3.1.0"])
+      s.add_dependency(%q<sqlite3>, [">= 0"])
+      s.add_dependency(%q<jquery-rails>, [">= 0"])
+      s.add_dependency(%q<rspec-rails>, [">= 0"])
+      s.add_dependency(%q<autotest>, [">= 0"])
+      s.add_dependency(%q<capybara>, [">= 0"])
+      s.add_dependency(%q<jasminerice>, [">= 0"])
+      s.add_dependency(%q<guard-jasmine>, [">= 0"])
+      s.add_dependency(%q<faker>, [">= 0"])
     end
   else
     s.add_dependency(%q<rspec>, ["~> 2.8.0"])
     s.add_dependency(%q<rdoc>, ["~> 3.12"])
     s.add_dependency(%q<bundler>, ["~> 1.1.0"])
     s.add_dependency(%q<jeweler>, ["~> 1.8.3"])
+    s.add_dependency(%q<rails>, ["= 3.1.0"])
+    s.add_dependency(%q<sqlite3>, [">= 0"])
+    s.add_dependency(%q<jquery-rails>, [">= 0"])
+    s.add_dependency(%q<rspec-rails>, [">= 0"])
+    s.add_dependency(%q<autotest>, [">= 0"])
+    s.add_dependency(%q<capybara>, [">= 0"])
+    s.add_dependency(%q<jasminerice>, [">= 0"])
+    s.add_dependency(%q<guard-jasmine>, [">= 0"])
+    s.add_dependency(%q<faker>, [">= 0"])
   end
 end
 
