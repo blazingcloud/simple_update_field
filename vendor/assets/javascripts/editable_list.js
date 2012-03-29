@@ -80,7 +80,7 @@ Editable = function(selector) {
     data['id'] = id
     data[name] = {}
     data[name][attribute] = node.val().trim()
-    $.ajax({url:url,data:data,type:'PUT'})
+    $.ajax({url:uri,data:data,type:'PUT'})
   }
   self.complete_edit_event = function(event) {
     
