@@ -1,7 +1,3 @@
-//2hrs march 2nd
-//1hrs march 2nd
-//3hrs march 4th
-//
 Editable = function(selector) {
   var self = this
   self.selector = selector
@@ -84,7 +80,7 @@ Editable = function(selector) {
     data['id'] = id
     data[name] = {}
     data[name][attribute] = node.val().trim()
-    $.post(uri, data)
+    $.ajax({url:url,data:data,type:'PUT'})
   }
   self.complete_edit_event = function(event) {
     
