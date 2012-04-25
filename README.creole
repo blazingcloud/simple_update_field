@@ -52,8 +52,8 @@ end
 }}}
 * With an update action in your controller - you will also need a route for it
 ## edit your config/routes.rb file to specify that there is an update action
-### in the example there are only two actions - in practice you may use more,
-### or simply use the default actions that come from 'resources :phrases'
+*** in the example there are only two actions - in practice you may use more,
+*** or simply use the default actions that come from 'resources :phrases'
 {{{
   resources :phrases, :only => [:index,:update]
 }}}
