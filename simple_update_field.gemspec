@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = "simple_update_field"
-  s.version = "1.1.0"
+  s.version = "1.2.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Curtis Schofield"]
@@ -29,7 +29,7 @@ Gem::Specification.new do |s|
     "simple_update_field.gemspec",
     "spec/simple_update_field_spec.rb",
     "spec/spec_helper.rb",
-    "vendor/assets/javascripts/editable_list.js"
+    "vendor/assets/javascripts/simple_update_field.js"
   ]
   s.homepage = "http://github.com/blazingcloud/simple_update_field"
   s.licenses = ["MIT"]
