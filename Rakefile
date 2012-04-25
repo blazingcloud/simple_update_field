@@ -20,9 +20,9 @@ require 'jeweler'
 Jeweler::Tasks.new do |gem|
   # gem is a Gem::Specification... see http://docs.rubygems.org/read/chapter/20 for more options
   gem.name = "simple_update_field"
-  gem.homepage = "http://github.com/robotarmy/simple_update_field"
+  gem.homepage = "http://github.com/blazingcloud/simple_update_field"
   gem.license = "MIT"
-  gem.summary = %Q{turn a resource attribute into an inplace editable field}
+  gem.summary = %Q{turn a rails resource's attribute into an inplace editable field}
   gem.description = %Q{Your resources text attributes will gain inplace update ability with keybindings for quick editing}
   gem.email = "curtis@ram9.cc"
   gem.authors = ["Curtis Schofield"]
