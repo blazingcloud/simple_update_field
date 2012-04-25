@@ -21,7 +21,7 @@ based resource calls.
 }}}
 * You will need to re-start a running server for the Gemfile change to take effect
 === View Side
-* There are 3 custom attributes that will be used. An Example follows
+* There are 3 custom attributes on a *span* that will be used. An Example follows
 {{{
 <div class='phrase'>
       <span editable-resource-attribute="text"
@@ -86,6 +86,7 @@ There are 2 steps to integration with javascript.
 //= require simple_update_field
 }}}
 * The second step is to invoke the the Simple Update Field on the appropriate elements
+** this can be done in application.js aswell or in a new file in the app/assets/javascript directory
 ** A CSS selector of the jQuery style is assumed.
 ## For the above Phrase view code this could work :
 {{{
@@ -102,7 +103,7 @@ $(document).ready(function() {
 
 
 == Roadmap
-
+* Have it work for any element without modifying structure (ie needs no wrapper)
 * form field helper
 * error handling of ajax call
 
