@@ -38,6 +38,14 @@ based resource calls.
 ### this will be sent to the server as part of the post-variable ie:  model_name_here[attribute_name_here]=VALUE
 ## editable-resource-uri
 ### this is the destination to send the post-variable that is described by the above.
+* If you have a Resource Animals (Model : Animal & Controller : AnimalsController) with the attribute 'name' and an instance of Animal 'animal'
+{{{
+      <span editable-resource-attribute="name"
+            editable-resource-model="animal"
+            editable-resource-uri="<%=url_for(animal)%>">
+        <%= animal.name %>
+      </span>
+}}}
 * You will need a controller with an update action written in the typical rails resource-style
 ## The typical rails resource style tends towards having a the resource payload named by the model and as part of the general request params
 {{{
