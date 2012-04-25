@@ -1,0 +1,89 @@
+== simple_update_field
+
+Rails text field helper for inplace-editing of text with keybindings
+to move between each simple_update_field.
+
+simple_update_field is implemented internally with jquery
+
+== Installation Guide for Rails 3+
+
+You must have jquery-rails for this to function - which if you are using rails 3, 3.1, or 3.2 is the default
+
+In the installation guide you will see the following terms: phrase, PhrasesController, Phrase, text,
+
+The examples assume that a rails model exists named 'Phrase' with a corresponding PhrasesController.
+
+The Phrase model has an attribute 'text'.
+
+
+# Edit your Gemfile to include the following 
+{{{
+   gem "simple_update_field"
+}}}
+
+# There are 3 custom attributes that will be used. An Example follows
+{{{
+      <span editable-resource-attribute="text"
+            editable-resource-model="<%=phrase.class.model_name.downcase%>"
+            editable-resource-uri="<%=url_for(phrase)%>"
+            class="text">
+        <%= phrase.text %>
+      </span>
+}}}
+# The 3 custom attributes are :
+## editable-resource-attribute 
+### this is the name one of the model attributes that you want to change ie : 'name', 'text', 'phone_number'
+### this will be used with the editable-resource-model to name the parameter
+## editable-resource-model
+### this is a lowercase name of the model class that you are planning on changing 
+### this will be sent to the server as part of the post-variable ie:  model_name_here[attribute_name_here]=VALUE
+## editable-resource-uri
+### this is the destination to send the post-variable that is described by the above.
+# You will need a controller with an update action written in the typical rails resource-style
+## The typical rails resource style tends towards having a the resource payload named by the model and as part of the general request params
+{{{
+class PhrasesController < ApplicationController
+  def update
+    Phrase.
+      find(params[:id]).
+      update_attributes(params[:phrase])
+    head :ok # assume success
+  end
+end
+}}}
+# With an update action in your controller - you will also need a route for it
+## edit your config/routes.rb file to specify that there is an update action
+### in the example there are only two actions - in practice you may use more,
+### or simply use the default actions that come from 'resources :phrases'
+{{{
+  resources :phrases, :only => [:index,:update]
+}}}
+# The combination of having a resource 'end-point', and telling the span what the end point is, and what the model, and attribute are will be enough to save changes to the database.
+# you can invoke the simple update field by clicking on the text you may wish to add CSS styling for hover to indicate to the user that this is an interactive part of the display
+
+
+== Roadmap
+
+* form field helper
+* error handling of ajax call
+
+== Recent Changes
+
+* integrated rails test harness into gem
+
+=== Contributing to simple_update_field
+ 
+# Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet.
+# Check out the issue tracker to make sure someone already hasn't requested it and/or contributed it.
+# Fork the project.
+# Start a feature/bugfix branch.
+# Commit and push until you are happy with your contribution.
+# Make sure to add tests for it. This is important so I don't break it in a future version unintentionally.
+# Please try not to mess with the Rakefile, version, or history. If you want to have your own version, or is otherwise necessary, that is fine, but please isolate to its own commit so I can cherry-pick around it.
+
+=== Copyright
+Authored by Curtis Schofield
+
+Copyright (c) 2012 Blazing Cloud. See LICENSE.txt for
+further details.
+
