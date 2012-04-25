@@ -31,13 +31,13 @@ based resource calls.
 }}}
 ==== The 3 custom attributes are :
 ## editable-resource-attribute 
-### this is the name one of the model attributes that you want to change ie : 'name', 'text', 'phone_number'
-### this will be used with the editable-resource-model to name the parameter
+*** this is the name one of the model attributes that you want to change ie : 'name', 'text', 'phone_number'
+*** this will be used with the editable-resource-model to name the parameter
 ## editable-resource-model
-### this is a lowercase name of the model class that you are planning on changing 
-### this will be sent to the server as part of the post-variable ie:  model_name_here[attribute_name_here]=VALUE
+*** this is a lowercase name of the model class that you are planning on changing 
+*** this will be sent to the server as part of the post-variable ie:  model_name_here[attribute_name_here]=VALUE
 ## editable-resource-uri
-### this is the destination to send the post-variable that is described by the above.
+*** this is the destination to send the post-variable that is described by the above.
 ==== Example of all 3 attributes
 * With resources 'Animals' (Model : Animal & Controller : AnimalsController) with the attribute 'name' and an instance of Animal 'animal'
 {{{
