@@ -1,4 +1,5 @@
-require 'spec_helper'
+require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
+
 describe "SimpleUpdateField" do
   it "should define an engine" do
     lambda do

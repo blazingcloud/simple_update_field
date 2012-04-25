@@ -12,10 +12,6 @@ rescue Bundler::BundlerError => e
 end
 require 'rake'
 
-# RAILS
-require File.expand_path('../test-harness/config/application', __FILE__)
-EditableList::Application.load_tasks
-
 require 'jeweler'
 Jeweler::Tasks.new do |gem|
   # gem is a Gem::Specification... see http://docs.rubygems.org/read/chapter/20 for more options
@@ -40,7 +36,6 @@ RSpec::Core::RakeTask.new(:rcov) do |spec|
   spec.pattern = 'spec/**/*_spec.rb'
   spec.rcov = true
 end
-task :test => :default # hack for rails
 task :default => :spec
 
 require 'rdoc/task'
@@ -52,5 +47,3 @@ Rake::RDocTask.new do |rdoc|
   rdoc.rdoc_files.include('README*')
   rdoc.rdoc_files.include('lib/**/*.rb')
 end
-
-
