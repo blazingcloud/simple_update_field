@@ -1,4 +1,4 @@
-Editable = function(selector) {
+SimpleUpdateField = function(selector) {
   var self = this
   self.selector = selector
 
@@ -36,7 +36,7 @@ Editable = function(selector) {
   }
   var is_rollback_changes  = function() {
     if (self.last_keydown_event) {
-      if (self.last_keydown_event.keyCode == Editable.ESC_KEY) {
+      if (self.last_keydown_event.keyCode == SimpleUpdateField.ESC_KEY) {
         return true
       }
     }
@@ -44,10 +44,10 @@ Editable = function(selector) {
   }
   var is_blur_tab_redirect = function () {
     if (self.last_keydown_event) {
-      if (self.last_keydown_event.keyCode == Editable.TAB_KEY) {
+      if (self.last_keydown_event.keyCode == SimpleUpdateField.TAB_KEY) {
         return true
       }
-      if (self.last_keydown_event.keyCode == Editable.ENTER_KEY) {
+      if (self.last_keydown_event.keyCode == SimpleUpdateField.ENTER_KEY) {
         return true
       }
     }
@@ -163,6 +163,6 @@ Editable = function(selector) {
   }()
   return self;
 }
-Editable.TAB_KEY   = 9   // tab is   #9
-Editable.ENTER_KEY = 13  // enter is #13
-Editable.ESC_KEY   = 27  // enter is #13
+SimpleUpdateField.TAB_KEY   = 9   // tab is   #9
+SimpleUpdateField.ENTER_KEY = 13  // enter is #13
+SimpleUpdateField.ESC_KEY   = 27  // enter is #13

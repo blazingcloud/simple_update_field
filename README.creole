@@ -23,12 +23,14 @@ based resource calls.
 === View Side
 * There are 3 custom attributes that will be used. An Example follows
 {{{
+<div class='phrase'>
       <span editable-resource-attribute="text"
             editable-resource-model="<%=phrase.class.model_name.downcase%>"
             editable-resource-uri="<%=url_for(phrase)%>"
             class="text">
         <%= phrase.text %>
       </span>
+</div>
 }}}
 ==== The 3 custom attributes are :
 ## editable-resource-attribute 
@@ -44,7 +46,8 @@ based resource calls.
 {{{
       <span editable-resource-attribute="name"
             editable-resource-model="animal"
-            editable-resource-uri="<%=url_for(animal)%>">
+            editable-resource-uri="<%=url_for(animal)%>"
+            class="animal-name">
         <%= animal.name %>
       </span>
 }}}
@@ -74,6 +77,29 @@ end
 * The combination of having a resource 'end-point', and telling the span what the end point is, and what the model, and attribute are will be enough to save changes to the database.
 * You can invoke the simple update field by clicking on the text you may wish to add CSS styling for hover to indicate to the user that this is an interactive part of the display
 
+=== Javascript Integration
+
+There are 2 steps to integration with javascript.
+
+* The first step is to modify application.js to include the name of the javascript file
+{{{
+//= require simple_update_field
+}}}
+* The second step is to invoke the the Simple Update Field on the appropriate elements
+** A CSS selector of the jQuery style is assumed.
+## For the above Phrase view code this could work :
+{{{
+$(document).ready(function() {
+  SimpleUpdateField('.phrase .text')
+})
+}}}
+## For the above Animals view code this could work :
+{{{
+$(document).ready(function() {
+  SimpleUpdateField('.animal-name')
+})
+}}}
+
 
 == Roadmap
 
@@ -82,7 +108,7 @@ end
 
 == Recent Changes
 
-* integrated rails test harness into gem
+* Left out test harness https://github.com/blazingcloud/simple_update_field-jasmine-harness
 
 === Contributing to simple_update_field
  
