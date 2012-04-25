@@ -62,10 +62,13 @@ end
 }}}
 * With an update action in your controller - you will also need a route for it
 ## edit your config/routes.rb file to specify that there is an update action
-*** in the example there are only two actions - in practice you may use more,
-*** or simply use the default actions that come from 'resources :phrases'
+*** in the example there are only two actions :
 {{{
   resources :phrases, :only => [:index,:update]
+}}}
+*** or simply use the default actions :
+{{{
+  resources :phrases
 }}}
 * The combination of having a resource 'end-point', and telling the span what the end point is, and what the model, and attribute are will be enough to save changes to the database.
 * You can invoke the simple update field by clicking on the text you may wish to add CSS styling for hover to indicate to the user that this is an interactive part of the display
