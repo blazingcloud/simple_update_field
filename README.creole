@@ -19,6 +19,7 @@ based resource calls.
 {{{
    gem "simple_update_field"
 }}}
+* You will need to re-start a running server for the Gemfile change to take effect
 === View Side
 * There are 3 custom attributes that will be used. An Example follows
 {{{
