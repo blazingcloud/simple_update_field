@@ -19,7 +19,7 @@ based resource calls.
 {{{
    gem "simple_update_field"
 }}}
-
+=== View Side
 * There are 3 custom attributes that will be used. An Example follows
 {{{
       <span editable-resource-attribute="text"
@@ -29,7 +29,7 @@ based resource calls.
         <%= phrase.text %>
       </span>
 }}}
-* The 3 custom attributes are :
+==== The 3 custom attributes are :
 ## editable-resource-attribute 
 ### this is the name one of the model attributes that you want to change ie : 'name', 'text', 'phone_number'
 ### this will be used with the editable-resource-model to name the parameter
@@ -38,7 +38,8 @@ based resource calls.
 ### this will be sent to the server as part of the post-variable ie:  model_name_here[attribute_name_here]=VALUE
 ## editable-resource-uri
 ### this is the destination to send the post-variable that is described by the above.
-* If you have a Resource Animals (Model : Animal & Controller : AnimalsController) with the attribute 'name' and an instance of Animal 'animal'
+==== Example of all 3 attributes
+* With resources 'Animals' (Model : Animal & Controller : AnimalsController) with the attribute 'name' and an instance of Animal 'animal'
 {{{
       <span editable-resource-attribute="name"
             editable-resource-model="animal"
@@ -46,6 +47,7 @@ based resource calls.
         <%= animal.name %>
       </span>
 }}}
+=== Resource Side 
 * You will need a controller with an update action written in the typical rails resource-style
 ## The typical rails resource style tends towards having a the resource payload named by the model and as part of the general request params
 {{{
