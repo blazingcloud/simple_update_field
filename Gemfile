@@ -1,10 +1,5 @@
 source "http://rubygems.org"
 
-group :assets do
-  gem 'sass-rails'
-  gem 'coffee-rails'
-  gem 'uglifier'
-end
 
 group :development do
   gem "rspec", "~> 2.8.0"

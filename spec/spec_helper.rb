@@ -1,6 +1,17 @@
-# This file is copied to spec/ when you run 'rails generate rspec:install'
+require_relative './lib/simple_update_field'
+
+
+
+
+
+
+
+## Everything below is for integrating Rails Test Harness into rake
+##
+###
+
 ENV["RAILS_ENV"] ||= 'test'
-require File.expand_path("../../config/environment", __FILE__)
+require File.expand_path("../../test-harness/config/environment", __FILE__)
 require 'rspec/rails'
 require 'rspec/autorun'
 

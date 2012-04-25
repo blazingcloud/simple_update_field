@@ -13,7 +13,7 @@ end
 require 'rake'
 
 # RAILS
-require File.expand_path('../config/application', __FILE__)
+require File.expand_path('../test-harness/config/application', __FILE__)
 EditableList::Application.load_tasks
 
 require 'jeweler'
@@ -40,7 +40,7 @@ RSpec::Core::RakeTask.new(:rcov) do |spec|
   spec.pattern = 'spec/**/*_spec.rb'
   spec.rcov = true
 end
-
+task :test => :default # hack for rails
 task :default => :spec
 
 require 'rdoc/task'
