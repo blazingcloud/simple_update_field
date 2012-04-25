@@ -9,12 +9,12 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Curtis Schofield"]
-  s.date = "2012-03-29"
+  s.date = "2012-04-25"
   s.description = "Your resources text attributes will gain inplace update ability with keybindings for quick editing"
   s.email = "curtis@ram9.cc"
   s.extra_rdoc_files = [
     "LICENSE.txt",
-    "README.rdoc"
+    "README.creole"
   ]
   s.files = [
     ".document",
@@ -23,7 +23,7 @@ Gem::Specification.new do |s|
     "Gemfile",
     "Gemfile.lock",
     "LICENSE.txt",
-    "README.rdoc",
+    "README.creole",
     "Rakefile",
     "VERSION",
     "app/assets/images/rails.png",
@@ -78,11 +78,11 @@ Gem::Specification.new do |s|
     "spec/views/index.html.erb_spec.rb",
     "vendor/assets/javascripts/editable_list.js"
   ]
-  s.homepage = "http://github.com/robotarmy/simple_update_field"
+  s.homepage = "http://github.com/blazingcloud/simple_update_field"
   s.licenses = ["MIT"]
   s.require_paths = ["lib"]
   s.rubygems_version = "1.8.10"
-  s.summary = "turn a resource attribute into an inplace editable field"
+  s.summary = "turn a rails resource's attribute into an inplace editable field"
 
   if s.respond_to? :specification_version then
     s.specification_version = 3
