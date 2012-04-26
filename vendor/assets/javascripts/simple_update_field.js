@@ -2,37 +2,25 @@ SimpleUpdateField = function(selector) {
   var self = this
   self.selector = selector
 
-  var create_tag_with = function(tag_name,node) {
-    var elem = $('<'+tag_name+'/>');
-    var attributes = node.get(0).attributes
-    for(var i = attributes.length-1; i >=0;i--) {
-      elem.attr(attributes[i].nodeName, attributes[i].nodeValue)
-    }
+  // Given a node with text() create an input that has the nodes text as it's value
+  // and record a memo about what the original-text is 
+  //
+  var create_input_from = function(node) {
 
-    elem.data(node.data())
-    elem.data('editable-was',node.get(0).tagName)
+    var input_node = $("<input/>")
+    input_node.data('original-text',node.text())
+    input_node.val(node.text().trim())
 
-    node.replaceWith(function() {
-      return elem
-    })
-    return elem
-  }
-
-  var replace_input_from = function(node) {
-    var element = create_tag_with('input',node)
-
-    element.data('original-text',node.text())
-    element.val(node.text().trim())
-
-    return element
-
+    return input_node
   }
 
   self.begin_edit_event = function(event) {
       var clicked_node = $(this);
-      var new_node = replace_input_from(clicked_node);
-      install_edit_complete_notions(new_node)
-      new_node.focus();
+      var input_node = create_input_from(clicked_node);
+      clicked_node.text("")
+      clicked_node.append(input_node)
+      install_edit_complete_notions(input_node)
+      input_node.focus();
   }
   var is_rollback_changes  = function() {
     if (self.last_keydown_event) {
@@ -67,9 +55,11 @@ SimpleUpdateField = function(selector) {
   }
   self.rollback_edit_event = function(event) {
     var finished_node = $(this)
-    var element = create_tag_with(finished_node.data('editable-was'),finished_node)
-    element.text(element.data('original-text'))
-    install_edit_notions(element)
+
+    var input_field = finished_node.filter("input") // find the input we created
+    finished_node.text(input_field.data('original-text')) // the input we create had a memo about it's original text
+    input_field.remove() // remove the input field that we created such that the node is unchanged
+
   }
   self.commit_to_remote_resource = function(node) {
     uri        = node.attr('editable-resource-uri')
@@ -86,10 +76,12 @@ SimpleUpdateField = function(selector) {
     
     var finished_node = $(this)
     commit_to_remote_resource(finished_node)
-    var element = create_tag_with(finished_node.data('editable-was'),finished_node)
-    element.text(finished_node.val())
-    install_edit_notions(element)
-    
+
+    var input_field = finished_node.filter("input") // find the input we created
+    element.text(input_field.val()) // set the elements character data back to text
+    input_field.remove() // remove the input field that we created such that the node is unchanged
+
+
     // If tab key was hit during the edit phase
     // we want to redirect this blur to be a click on the next
     // sibling
