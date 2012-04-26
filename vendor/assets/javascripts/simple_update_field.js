@@ -10,6 +10,12 @@ SimpleUpdateField = function(selector) {
   var create_input_from = function(node) {
 
     var input_node = $("<input/>")
+    var attributes = node.get(0).attributes
+    for(var i = attributes.length-1; i >=0; i--) {
+      if(attributes[i].nodeName.indexOf('editable') == 0) {
+        input_node.attr(attributes[i].nodeName, attributes[i].nodeValue)
+      }
+    }
     input_node.data('original-text',node.text())
     input_node.val(node.text().trim())
 
@@ -56,11 +62,10 @@ SimpleUpdateField = function(selector) {
     }
   }
   self.rollback_edit_event = function(event) {
-    var finished_node = $(this)
+    var finished_input_node = $(this)
 
-    var input_field = finished_node.filter("input") // find the input we created
-    finished_node.text(input_field.data('original-text')) // the input we create had a memo about it's original text
-    input_field.remove() // remove the input field that we created such that the node is unchanged
+    finished_input_node.parent().text(finished_input_node.data('original-text')) // the input we create had a memo about it's original text
+    finished_input_node.remove() // remove the input field that we created such that the node is unchanged
 
   }
   self.commit_to_remote_resource = function(node) {
@@ -74,28 +79,30 @@ SimpleUpdateField = function(selector) {
     data[name][attribute] = node.val().trim()
     $.ajax({url:uri,data:data,type:'PUT'})
   }
-  self.complete_edit_event = function(event) {
-    
-    var finished_node = $(this)
-    commit_to_remote_resource(finished_node)
 
-    var input_field = finished_node.filter("input") // find the input we created
-    element.text(input_field.val()) // set the elements character data back to text
-    input_field.remove() // remove the input field that we created such that the node is unchanged
+  self.complete_edit_event = function(event) {
+
+    var finished_input_node = $(this)
+    var parent = finished_input_node.parent();
+
+    commit_to_remote_resource(finished_input_node)
+    parent.text(finished_input_node.val()) // set the elements character data back to text
+
+    finished_input_node.remove() // remove the input field that we created such that the node is unchanged
 
 
     // If tab key was hit during the edit phase
     // we want to redirect this blur to be a click on the next
     // sibling
     if(is_blur_tab_redirect()) {
-      move_to_next_sibling(element)
+      move_to_next_sibling(parent)
     }
 
     // Cleanup - cross event state
     // there was no last keydown event
     self.last_keydown_event = undefined;
   }
-  
+
   var install_edit_notions = function(selector) {
 
     $(selector).bind('click.editable',begin_edit_event)
