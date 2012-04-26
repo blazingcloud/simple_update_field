@@ -1,7 +1,9 @@
 SimpleUpdateField = function(selector) {
   var self = this
   self.selector = selector
-
+  self.current_input = function () {
+    return $(self.selector + ' > input')
+  }
   // Given a node with text() create an input that has the nodes text as it's value
   // and record a memo about what the original-text is 
   //
