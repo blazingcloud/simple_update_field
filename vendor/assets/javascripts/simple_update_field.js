@@ -23,7 +23,7 @@ SimpleUpdateField = function(selector) {
     }
     input_node.data('original-text',node.text())
     input_node.val(node.text().trim())
-
+    input_node.addClass('editable-input')
     return input_node
   }
 
