@@ -5,6 +5,17 @@ to move between each simple_update_field.
 
 simple_update_field is implemented internally with jquery
 
+== Design Goals
+
+Simple_update_field is designed to extend the browsers behaviour in a un-surprising manner.
+
+== Styling Guide
+
+Use CSS as you normaly would along with the following classes
+
+.editable-input --- this is the input that will be created on click use this class to change it's style
+.editable-hover --- this is the field that has a mouse-over - use this to tell the user the field is clickable
+
 == Installation Guide for Rails 3+
 
 If you are using a version of rails before JQuery became the default - please integrate the gem 'jquery-rails'
