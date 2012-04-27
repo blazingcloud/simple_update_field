@@ -63,7 +63,7 @@ SimpleUpdateField = function(selector) {
       }
       next_editable.trigger('click.editable')
     }else {
-      throw 'Expected to be able to assign custom attribute editable-index'
+      throw 'Expected to find custom attribute editable-index'
     }
   }
   self.rollback_edit_event = function(event) {
