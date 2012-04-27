@@ -103,12 +103,13 @@ $(document).ready(function() {
 
 
 == Roadmap
-* Have it work for any element without modifying structure (ie needs no wrapper)
 * form field helper
 * error handling of ajax call
 
 == Recent Changes
 
+* Have it work for any element without modifying structure (ie needs no wrapper)
+* Reworked internal Design so that it can work without altering the layout done via css
 * Left out test harness https://github.com/blazingcloud/simple_update_field-jasmine-harness
 
 === Contributing to simple_update_field
