@@ -13,8 +13,29 @@ Simple_update_field is designed to extend the browsers behaviour in a un-surpris
 
 Use CSS as you normaly would along with the following classes
 
-.editable-input --- this is the input that will be created on click use this class to change it's style
-.editable-hover --- this is the field that has a mouse-over - use this to tell the user the field is clickable
+
+{{{
+.editable-input {
+/* 
+   this is the input that will be created 
+   on click use this class to change it's style
+*/
+}
+}}}
+{{{
+.editable-hover  {
+/* 
+  this is the field that has a mouse-over 
+  use this to tell the user the field is clickable 
+*/
+}
+
+}}}
+
+It is recommended to put a min-width on the element which contains your editable
+text. For example - if you use a span - if you remove all the text the element
+will collapse. Simple Update Field will not take responsiblity for lack of styling
+such an element as you have the power to adjust this via CSS! 
 
 == Installation Guide for Rails 3+
 
