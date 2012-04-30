@@ -58,7 +58,9 @@ based resource calls.
 <div class='phrase'>
       <span editable-resource-attribute="text"
             editable-resource-model="<%=phrase.class.model_name.downcase%>"
-            editable-resource-uri="<%=phrase_path(phrase)%>"
+            editable-resource-uri="<%=phrase_path(phrase,
+                                                   :authenticity_token => 
+                                                    form_authenticity_token)%>"
             class="text">
         <%= phrase.text %>
       </span>
@@ -73,12 +75,16 @@ based resource calls.
 *** this will be sent to the server as part of the post-variable ie:  model_name_here[attribute_name_here]=VALUE
 ## editable-resource-uri
 *** this is the destination to send the post-variable that is described by the above.
+**** you will need to encode CRSF into this path if you are using typical rails protect_from_forgery
 ==== Example of all 3 attributes
 * With resources 'Animals' (Model : Animal & Controller : AnimalsController) with the attribute 'name' and an instance of Animal 'animal'
 {{{
       <span editable-resource-attribute="name"
             editable-resource-model="animal"
-            editable-resource-uri="<%=url_for(animal)%>"
+            editable-resource-uri="<%= animal_path(animal,
+                                                   :authenticity_token => 
+                                                    form_authenticity_token)
+                                    %>"
             class="animal-name">
         <%= animal.name %>
       </span>
