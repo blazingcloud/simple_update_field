@@ -58,7 +58,7 @@ based resource calls.
 <div class='phrase'>
       <span editable-resource-attribute="text"
             editable-resource-model="<%=phrase.class.model_name.downcase%>"
-            editable-resource-uri="<%=url_for(phrase)%>"
+            editable-resource-uri="<%=phrase_path(phrase)%>"
             class="text">
         <%= phrase.text %>
       </span>
