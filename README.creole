@@ -146,6 +146,8 @@ $(document).ready(function() {
 
 == Recent Changes
 
+* Only commit changed fields to the remote-resource-uri
+* Trim leading and trailng whitespace of entered data or original text data
 * Have it work for any element without modifying structure (ie needs no wrapper)
 * Reworked internal Design so that it can work without altering the layout done via css
 * Left out test harness https://github.com/blazingcloud/simple_update_field-jasmine-harness
