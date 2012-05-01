@@ -1,5 +1,11 @@
 SimpleUpdateField = function(selector) {
   var self = this
+  /*
+   * This is used internally to track what key has been
+   * pressed last in complete event form.
+   *
+   */
+  self.last_keydown_event = undefined;
   self.selector = selector
   self.current_input = function () {
     var last_clicked = $(self.selector + ' > input')
@@ -21,13 +27,14 @@ SimpleUpdateField = function(selector) {
         input_node.attr(attributes[i].nodeName, attributes[i].nodeValue)
       }
     }
-    input_node.data('original-text',node.text())
+    input_node.data('original-text',node.text().trim())
+
     input_node.val(node.text().trim())
     input_node.addClass('editable-input')
     return input_node
   }
 
-  self.begin_edit_event = function(event) {
+  var begin_edit_event = function(event) {
       var clicked_node = $(this);
       var input_node = create_input_from(clicked_node);
       clicked_node.text("")
@@ -66,39 +73,48 @@ SimpleUpdateField = function(selector) {
       throw 'Expected to find custom attribute editable-index'
     }
   }
-  self.rollback_edit_event = function(event) {
+  var rollback_edit_event = function(event) {
     var finished_input_node = $(this)
 
     finished_input_node.parent().text(finished_input_node.data('original-text')) // the input we create had a memo about it's original text
     finished_input_node.remove() // remove the input field that we created such that the node is unchanged
 
   }
-  self.commit_to_remote_resource = function(node) {
-    uri        = node.attr('editable-resource-uri')
-    name       = node.attr('editable-resource-model')
-    attribute  = node.attr('editable-resource-attribute')
-    id         = node.attr('editable-resource-id')
+  var commit_to_remote_resource = function(input_node) {
+    uri        = input_node.attr('editable-resource-uri')
+    name       = input_node.attr('editable-resource-model')
+    attribute  = input_node.attr('editable-resource-attribute')
+    id         = input_node.attr('editable-resource-id')
     data       = {}
     data['id'] = id
     data[name] = {}
-    data[name][attribute] = node.val().trim()
+    data[name][attribute] = input_node.val().trim()
     $.ajax({url:uri,data:data,type:'PUT'})
   }
 
-  self.complete_edit_event = function(event) {
+  var commit_if_changed = function(input_node) {
+    if(input_node.data('original-text') != input_node.val().trim())  {
+      commit_to_remote_resource(input_node)
+    }
+  }
+
+  var complete_edit_event = function(event) {
 
     var finished_input_node = $(this)
     var parent = finished_input_node.parent();
 
-    commit_to_remote_resource(finished_input_node)
-    parent.text(finished_input_node.val()) // set the elements character data back to text
+    commit_if_changed(finished_input_node)
 
-    finished_input_node.remove() // remove the input field that we created such that the node is unchanged
+    // set the elements character data back to text
+    parent.text(finished_input_node.val())
 
+    // remove the input field that we created
+    // such that the node is unchanged
+    finished_input_node.remove()
 
     // If tab key was hit during the edit phase
-    // we want to redirect this blur to be a click on the next
-    // sibling
+    // we want to redirect this blur to be a
+    // click on the next sibling
     if(is_blur_tab_redirect()) {
       move_to_next_sibling(parent)
     }
@@ -135,8 +151,8 @@ SimpleUpdateField = function(selector) {
       return true // allow default propigation
     })
 
-    $(selector).bind('blur.editable',self.complete_edit_event)
-    $(selector).bind('rollback.editable',self.rollback_edit_event)
+    $(selector).bind('blur.editable',complete_edit_event)
+    $(selector).bind('rollback.editable',rollback_edit_event)
   }
   var annotate_editable_with_position = function(selector) {
     $(selector).each(function(i,el) {
