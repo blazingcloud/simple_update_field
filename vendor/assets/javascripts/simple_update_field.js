@@ -1,3 +1,4 @@
+//1
 SimpleUpdateField = function(selector) {
   var self = this
   /*
@@ -40,6 +41,7 @@ SimpleUpdateField = function(selector) {
       clicked_node.text("")
       clicked_node.append(input_node)
       install_edit_complete_notions(input_node)
+      uninstall_edit_notions(clicked_node)
       input_node.focus();
   }
   var is_rollback_changes  = function() {
@@ -66,19 +68,12 @@ SimpleUpdateField = function(selector) {
       var next_position = parseInt(element.attr('editable-index')) +1
       var next_editable = $(selector).filter('[editable-index='+next_position+']')
       if (next_editable.size() == 0) {
-        next_editable = $(selector).filter('[editable-index=1]')
+        next_editable = $(selector).filter('[editable-index=0]')
       }
       next_editable.trigger('click.editable')
     }else {
       throw 'Expected to find custom attribute editable-index'
     }
-  }
-  var rollback_edit_event = function(event) {
-    var finished_input_node = $(this)
-
-    finished_input_node.parent().text(finished_input_node.data('original-text')) // the input we create had a memo about it's original text
-    finished_input_node.remove() // remove the input field that we created such that the node is unchanged
-
   }
   var commit_to_remote_resource = function(input_node) {
     uri        = input_node.attr('editable-resource-uri')
@@ -98,6 +93,18 @@ SimpleUpdateField = function(selector) {
     }
   }
 
+  var editable_restoration = function(element,text_value) {
+    element.text(text_value)
+    install_edit_notions(element)
+  }
+
+  var rollback_edit_event = function(event) {
+    var finished_input_node = $(this)
+    var parent = finished_input_node.parent();
+
+    editable_restoration(parent,finished_input_node.data('original-text')) // the input we create had a memo about it's original text
+  }
+
   var complete_edit_event = function(event) {
 
     var finished_input_node = $(this)
@@ -105,12 +112,7 @@ SimpleUpdateField = function(selector) {
 
     commit_if_changed(finished_input_node)
 
-    // set the elements character data back to text
-    parent.text(finished_input_node.val())
-
-    // remove the input field that we created
-    // such that the node is unchanged
-    finished_input_node.remove()
+    editable_restoration(parent,finished_input_node.val())
 
     // If tab key was hit during the edit phase
     // we want to redirect this blur to be a
@@ -136,6 +138,12 @@ SimpleUpdateField = function(selector) {
     })
   }
 
+  var uninstall_edit_notions = function(selector) {
+    $(selector).unbind('click.editable')
+    $(selector).unbind('mouseover.editable')
+    $(selector).unbind('mouseout.editable')
+  }
+
   var install_edit_complete_notions = function (selector) {
 
     $(selector).bind('keydown.editable',function(e) {
@@ -156,7 +164,7 @@ SimpleUpdateField = function(selector) {
   }
   var annotate_editable_with_position = function(selector) {
     $(selector).each(function(i,el) {
-      $(el).attr('editable-index',i+1)
+      $(el).attr('editable-index',i)
     })
   }
   
