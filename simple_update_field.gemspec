@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "simple_update_field"
-  s.version = "2.1.0"
+  s.version = "2.2.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Curtis Schofield"]
-  s.date = "2012-05-01"
+  s.date = "2012-05-04"
   s.description = "Your resources text attributes will gain inplace update ability with keybindings for quick editing"
   s.email = "curtis@ram9.cc"
   s.extra_rdoc_files = [
