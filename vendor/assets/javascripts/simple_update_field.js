@@ -1,5 +1,5 @@
 //1
-SimpleUpdateField = function(selector) {
+SimpleUpdateField = function(selector, options) {
   var self = this
   /*
    * This is used internally to track what key has been
@@ -52,7 +52,7 @@ SimpleUpdateField = function(selector) {
     }
     return false
   }
-  var is_blur_tab_redirect = function () {
+  var is_tab_redirect = function () {
     if (self.last_keydown_event) {
       if (self.last_keydown_event.keyCode == SimpleUpdateField.TAB_KEY) {
         return true
@@ -87,43 +87,60 @@ SimpleUpdateField = function(selector) {
     $.ajax({url:uri,data:data,type:'PUT'})
   }
 
-  var commit_if_changed = function(input_node) {
+  self.commit_if_changed = function(input_node) {
     if(input_node.data('original-text') != input_node.val().trim())  {
       commit_to_remote_resource(input_node)
     }
   }
 
-  var editable_restoration = function(element,text_value) {
-    element.text(text_value)
-    install_edit_notions(element)
+  var commit_if_callback_true = function(original_element,finished_input_node) {
+    var continue_commit = true
+    if (options && options.before_update)
+      continue_commit = options.before_update.apply(finished_input_node.get(0))
+    if (continue_commit) {
+      commit_if_changed(finished_input_node)
+    }
+    return continue_commit
+  }
+
+  var editable_restoration = function(original_element,text_value) {
+    original_element.text(text_value)
+    install_edit_notions(original_element)
   }
 
   var rollback_edit_event = function(event) {
-    var finished_input_node = $(this)
-    var parent = finished_input_node.parent();
+    var parent = $(this).parent();
+    rollback_edit(parent, $(this))
+  }
 
-    editable_restoration(parent,finished_input_node.data('original-text')) // the input we create had a memo about it's original text
+  var rollback_edit = function(original_element, finished_input_node) {
+    editable_restoration(original_element, finished_input_node.data('original-text'))
+  }
+  
+  var complete_edit = function(original_element,finished_input_node) {
+    if(commit_if_callback_true(original_element,finished_input_node) ) {
+      editable_restoration(original_element,finished_input_node.val())
+    }
+    else {
+      editable_restoration(original_element, finished_input_node.data('original-text'))
+    }
+    // If tab key was hit during the edit phase
+    // we want to redirect this  to be a
+    // click on the next sibling
+    if(is_tab_redirect()) {
+      move_to_next_sibling(original_element)
+    }
+    // Cleanup - cross event state
+    // there was no last keydown event
+    self.last_keydown_event = undefined;
   }
 
   var complete_edit_event = function(event) {
 
     var finished_input_node = $(this)
-    var parent = finished_input_node.parent();
+    var original_element = finished_input_node.parent();
 
-    commit_if_changed(finished_input_node)
-
-    editable_restoration(parent,finished_input_node.val())
-
-    // If tab key was hit during the edit phase
-    // we want to redirect this blur to be a
-    // click on the next sibling
-    if(is_blur_tab_redirect()) {
-      move_to_next_sibling(parent)
-    }
-
-    // Cleanup - cross event state
-    // there was no last keydown event
-    self.last_keydown_event = undefined;
+    complete_edit(original_element,finished_input_node)
   }
 
   var install_edit_notions = function(selector) {
@@ -148,8 +165,8 @@ SimpleUpdateField = function(selector) {
 
     $(selector).bind('keydown.editable',function(e) {
       self.last_keydown_event = e
-      if(is_blur_tab_redirect()) {
-        $(this).trigger('blur.editable')
+      if(is_tab_redirect()) {
+        $(this).trigger('complete.editable')
         return false; // manually handle tab - no event propigation
       }
       if(is_rollback_changes()) {
@@ -159,7 +176,7 @@ SimpleUpdateField = function(selector) {
       return true // allow default propigation
     })
 
-    $(selector).bind('blur.editable',complete_edit_event)
+    $(selector).bind('complete.editable',complete_edit_event)
     $(selector).bind('rollback.editable',rollback_edit_event)
   }
   var annotate_editable_with_position = function(selector) {

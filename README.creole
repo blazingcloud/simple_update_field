@@ -8,6 +8,30 @@ simple_update_field is implemented internally with jquery
 == Design Goals
 
 Simple_update_field is designed to extend the browsers behaviour in a un-surprising manner.
+== Callback Guide
+
+ You may wish to be able to change the rules around when to, or when not to do an update.
+
+ A callback named 'before_update' is provided - you can install it when you invoke SimpleUpdateField.
+
+ For example you may wish to have a confirmation dialog:
+
+{{{
+
+var my_confirm_handler = function() {
+  var input = this
+  return confirm("Update the database with " + input.value +" ?")
+}
+
+$(document).ready(function() {
+  SimpleUpdateField('.phrase .text'
+                    ,{ 
+                       before_update:my_confirm_handler
+                    })
+
+})
+
+}}}
 
 == Styling Guide
 
@@ -145,7 +169,7 @@ $(document).ready(function() {
 * error handling of ajax call
 
 == Recent Changes
-
+* before_update callback - return true to continue , false to stop
 * Only commit changed fields to the remote-resource-uri
 * Trim leading and trailng whitespace of entered data or original text data
 * Have it work for any element without modifying structure (ie needs no wrapper)
@@ -168,6 +192,7 @@ Curtis Schofield
 
 Contributors 
 Judy Tuna
+Hollin Wilkins
 
 Copyright (c) 2012 Blazing Cloud. See LICENSE.txt for
 further details.
