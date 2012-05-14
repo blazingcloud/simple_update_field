@@ -169,6 +169,7 @@ $(document).ready(function() {
 * error handling of ajax call
 
 == Recent Changes
+* Only one active simple update field at a time, even across select groups
 * before_update callback - return true to continue , false to stop
 * Only commit changed fields to the remote-resource-uri
 * Trim leading and trailng whitespace of entered data or original text data
