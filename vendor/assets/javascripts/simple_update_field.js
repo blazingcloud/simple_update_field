@@ -32,9 +32,9 @@ SimpleUpdateField = function(selector, options) {
         input_node.attr(attributes[i].nodeName, attributes[i].nodeValue)
       }
     }
-    input_node.data('original-text',node.text().trim())
+    input_node.data('original-text',$.trim(node.text()))
 
-    input_node.val(node.text().trim())
+    input_node.val($.trim(node.text()))
     input_node.addClass('editable-input')
     return input_node
   }
@@ -96,12 +96,12 @@ SimpleUpdateField = function(selector, options) {
     data       = {}
     data['id'] = id
     data[name] = {}
-    data[name][attribute] = input_node.val().trim()
+    data[name][attribute] = $.trim(input_node.val())
     $.ajax({url:uri,data:data,type:'PUT'})
   }
 
   self.commit_if_changed = function(input_node) {
-    if(input_node.data('original-text') != input_node.val().trim())  {
+    if(input_node.data('original-text') != $.trim(input_node.val()))  {
       commit_to_remote_resource(input_node)
     }
   }
