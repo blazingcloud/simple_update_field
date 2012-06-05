@@ -1,5 +1,18 @@
 //1
 SimpleUpdateField = function(selector, options) {
+  var focus_node = function(node) {
+    /* 
+     * IE8,7,9 needs to breath for focus to work 
+     */
+    if (navigator.appName == 'Microsoft Internet Explorer') {
+      setTimeout(function() {
+        node.focus()
+      },100)
+    }
+    else {
+      node.focus()
+    }
+  }
   SimpleUpdateField.current_active = ( SimpleUpdateField.current_active || null )
   SimpleUpdateField.TAB_KEY   = 9   // tab is   #9
   SimpleUpdateField.ENTER_KEY = 13  // enter is #13
@@ -55,7 +68,7 @@ SimpleUpdateField = function(selector, options) {
       clicked_node.append(input_node)
       install_edit_complete_notions(input_node)
       uninstall_edit_notions(clicked_node)
-      input_node.focus();
+      focus_node(input_node)
   }
   var is_rollback_changes  = function() {
     if (self.last_keydown_event) {
