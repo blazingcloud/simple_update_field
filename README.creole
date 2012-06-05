@@ -169,6 +169,7 @@ $(document).ready(function() {
 * error handling of ajax call
 
 == Recent Changes
+* IE8 bug : $.trim() jquery helper must be used instead of String.trim()
 * Only one active simple update field at a time, even across select groups
 * before_update callback - return true to continue , false to stop
 * Only commit changed fields to the remote-resource-uri
