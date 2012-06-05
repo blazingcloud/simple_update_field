@@ -169,6 +169,7 @@ $(document).ready(function() {
 * error handling of ajax call
 
 == Recent Changes
+* IE789 bug : focus() doesn't work unless it is wrapped in a timeout :(
 * IE8 bug : $.trim() jquery helper must be used instead of String.trim()
 * Only one active simple update field at a time, even across select groups
 * before_update callback - return true to continue , false to stop
